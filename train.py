@@ -125,7 +125,7 @@ def train_net(net,
 
 def get_args():
     parser = argparse.ArgumentParser(description='Train the UNet on images and target masks',
-                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)  # TODO 这里的传入的类跟默认相比有什么作用
     parser.add_argument('-e', '--epochs', metavar='E', type=int, default=5,
                         help='Number of epochs', dest='epochs')
     parser.add_argument('-b', '--batch-size', metavar='B', type=int, nargs='?', default=1,
@@ -143,9 +143,9 @@ def get_args():
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')  # TODO format参数的使用, 而且这里没有用getLogger，直接配置的logging
     args = get_args()
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')  # TODO pytorch检测cuda存不存在并且设置使用GPU还是CPU
     logging.info(f'Using device {device}')
 
     # Change here to adapt to your data
@@ -158,7 +158,7 @@ if __name__ == '__main__':
     logging.info(f'Network:\n'
                  f'\t{net.n_channels} input channels\n'
                  f'\t{net.n_classes} output channels (classes)\n'
-                 f'\t{"Bilinear" if net.bilinear else "Transposed conv"} upscaling')
+                 f'\t{"Bilinear" if net.bilinear else "Transposed conv"} upscaling')  # TODO 注意这里多个字符串相连的写法
 
     if args.load:
         net.load_state_dict(
